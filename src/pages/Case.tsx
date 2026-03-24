@@ -6,6 +6,8 @@ import { useEffect, useState } from 'react';
 import { ChevronLeft } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
+const BASE = import.meta.env.BASE_URL;
+
 const cases = [
   { id: 1, title: 'Как я спроектировал раздел автонакоплений для банка и получил 80% Success Rate' },
   { id: 2, title: 'Как я спроектировал раздел автонакоплений для банка и получил 80% Success Rate' },
@@ -177,7 +179,7 @@ export default function Case() {
                   className="w-12 h-12 rounded-xl bg-gradient-to-bl from-amber-200 via-lime-400 to-sky-400 p-[2px] shadow-sm cursor-pointer relative z-10"
                 >
                   <Avatar className="w-full h-full bg-muted overflow-hidden rounded-[10px]">
-                    <AvatarImage src="/assets/images/avatar.jpg" alt="Антон Карпук" className="object-cover object-[center_20%]" />
+                    <AvatarImage src={`${BASE}assets/images/avatar.jpg`} alt="Антон Карпук" className="object-cover object-[center_20%]" />
                     <AvatarFallback className="bg-secondary text-sm font-semibold rounded-[10px]">АК</AvatarFallback>
                   </Avatar>
                 </motion.div>
@@ -270,7 +272,7 @@ export default function Case() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="mb-16"
             >
-              <h1 className="text-[36px] leading-[120%] font-medium tracking-tight text-foreground mb-8">
+              <h1 className="text-[24px] md:text-[36px] leading-[120%] font-medium tracking-tight text-foreground mb-6 md:mb-8">
                 {caseData.title}
               </h1>
               <p className="text-[16px] md:text-[18px] leading-[1.6] text-foreground/80 font-normal">
@@ -382,7 +384,7 @@ export default function Case() {
               </p>
 
               <div className="mb-8 overflow-hidden">
-                <img src="/assets/images/benchmark-1.png" alt="Бенчмарк приложений" className="w-full" />
+                <img src={`${BASE}assets/images/benchmark-1.png`} alt="Бенчмарк приложений" className="w-full" />
               </div>
 
               <p className="text-[16px] md:text-[18px] leading-[1.6] text-foreground/80 mb-8">
@@ -411,7 +413,7 @@ export default function Case() {
               </div>
 
               <div className="mb-4 overflow-hidden">
-                <img src="/assets/images/benchmark-2.png" alt="Таблица бенчмарка" className="w-full" />
+                <img src={`${BASE}assets/images/benchmark-2.png`} alt="Таблица бенчмарка" className="w-full" />
               </div>
 
               <a
@@ -441,7 +443,7 @@ export default function Case() {
               <div className="space-y-12">
                 <div>
                   <div className="mb-4 overflow-hidden bg-muted/5">
-                    <img src="/assets/images/flow-create.png" alt="Создание копилки" className="w-full" />
+                    <img src={`${BASE}assets/images/flow-create.png`} alt="Создание копилки" className="w-full" />
                   </div>
                   <p className="text-[14px] leading-[1.6] text-muted-foreground">
                     Создание копилки. Я как пользователь хочу создать копилку, чтобы накопить на отпуск.
@@ -450,7 +452,7 @@ export default function Case() {
 
                 <div>
                   <div className="mb-4 overflow-hidden bg-muted/5">
-                    <img src="/assets/images/flow-refill.png" alt="Пополнение копилки" className="w-full" />
+                    <img src={`${BASE}assets/images/flow-refill.png`} alt="Пополнение копилки" className="w-full" />
                   </div>
                   <p className="text-[14px] leading-[1.6] text-muted-foreground">
                     Ручное пополнение копилки. Я как пользователь хочу вручную пополнить копилку.
@@ -459,7 +461,7 @@ export default function Case() {
 
                 <div>
                   <div className="mb-4 overflow-hidden bg-muted/5">
-                    <img src="/assets/images/flow-edit.png" alt="Редактирование копилки" className="w-full" />
+                    <img src={`${BASE}assets/images/flow-edit.png`} alt="Редактирование копилки" className="w-full" />
                   </div>
                   <p className="text-[14px] leading-[1.6] text-muted-foreground">
                     Редактирование копилки. Я как пользователь хочу изменить способ накопления и сдвинуть дату завершения.
@@ -483,7 +485,7 @@ export default function Case() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center mb-24">
                 <div className="order-2 md:order-1 self-center">
                   <div className="overflow-hidden rounded-[24px] border border-foreground/5 shadow-sm">
-                    <img src="/assets/images/screen-home.png" alt="Домашняя страница" className="w-full" />
+                    <img src={`${BASE}assets/images/screen-home.png`} alt="Домашняя страница" className="w-full" />
                   </div>
                 </div>
                 <div className="order-1 md:order-2 self-center flex flex-col justify-center">
@@ -508,7 +510,7 @@ export default function Case() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12 items-start">
                     <div className="flex flex-col">
                       <div className="mb-6 overflow-hidden rounded-[24px] border border-foreground/5 shadow-sm">
-                        <img src="/assets/images/screen-create-emoji.png" alt="Выбор обложки" className="w-full" />
+                        <img src={`${BASE}assets/images/screen-create-emoji.png`} alt="Выбор обложки" className="w-full" />
                       </div>
                       <p className="text-[14px] leading-[1.6] text-muted-foreground">
                         Обычно любая цель имеет оболочку и ее можно сфотографировать, но если нет фото — в качестве обложки можно использовать подходящий эмодзи из предложенных.
@@ -517,7 +519,7 @@ export default function Case() {
 
                     <div className="flex flex-col">
                       <div className="mb-6 overflow-hidden rounded-[24px] border border-foreground/5 shadow-sm">
-                        <img src="/assets/images/screen-create-methods.png" alt="Выбор способа" className="w-full" />
+                        <img src={`${BASE}assets/images/screen-create-methods.png`} alt="Выбор способа" className="w-full" />
                       </div>
                       <p className="text-[14px] leading-[1.6] text-muted-foreground">
                         Здесь пользователь выбирает тот способ накопления, который удобен лично ему.

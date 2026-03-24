@@ -5,9 +5,11 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { motion, useMotionValue, useSpring, useTransform, useAnimationFrame, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 
+const BASE = import.meta.env.BASE_URL;
+
 const cases = [
-  { id: 1, title: 'Как я спроектировал раздел автонакоплений для банка и получил 80% Success Rate' },
-  { id: 2, title: 'Как я спроектировал раздел автонакоплений для банка и получил 80% Success Rate' },
+  { id: 1, title: 'Как я спроектировал раздел автонакоплений для банка и получил 80% Success Rate', banner: 'case-1/banner 1.jpg' },
+  { id: 2, title: 'Как я спроектировал раздел автонакоплений для банка и получил 80% Success Rate', banner: 'case-2/banner 2.jpg' },
 ];
 
 const shots = Array.from({ length: 10 }, (_, i) => ({
@@ -71,8 +73,12 @@ const CaseCard = ({ c, i }: { c: any; i: number }) => {
         onMouseLeave={() => setIsHovered(false)}
       >
         <Card className="rounded-xl border-none shadow-sm overflow-hidden bg-[#ffffff] transition-all hover:shadow-md duration-300 ease-out h-full flex flex-col p-0">
-          <div className="w-full aspect-[16/10] bg-muted/30 relative overflow-hidden flex items-center justify-center p-0 m-0">
-            <span className="text-muted-foreground/40 font-medium text-sm">Banner Placeholder</span>
+          <div className="w-full aspect-[4/3] bg-muted/30 relative overflow-hidden p-0 m-0">
+            <img
+              src={`${BASE}assets/images/${c.banner}`}
+              alt={c.title}
+              className="w-full h-full object-cover"
+            />
           </div>
           <div className="p-5 md:p-6 flex-1 flex flex-row items-end justify-between gap-10">
             <h3 className="text-[20px] leading-[1.3] font-medium tracking-tight text-foreground/90 transition-colors group-hover:text-primary flex-1">
@@ -229,7 +235,7 @@ export default function Home() {
                   className="w-12 h-12 rounded-xl bg-gradient-to-bl from-amber-200 via-lime-400 to-sky-400 p-[2px] shadow-sm cursor-pointer relative z-10"
                 >
                   <Avatar className="w-full h-full bg-muted overflow-hidden rounded-[10px]">
-                    <AvatarImage src="/assets/images/avatar.jpg" alt="Антон Карпук" className="object-cover object-[center_20%]" />
+                    <AvatarImage src={`${BASE}assets/images/avatar.jpg`} alt="Антон Карпук" className="object-cover object-[center_20%]" />
                     <AvatarFallback className="bg-secondary text-sm font-semibold rounded-[10px]">АК</AvatarFallback>
                   </Avatar>
                 </motion.div>
@@ -297,7 +303,7 @@ export default function Home() {
           <h2 className="text-sm font-semibold tracking-widest text-muted-foreground/50 uppercase text-center mb-8 md:mb-12">UI шоты</h2>
 
           <div
-            className="relative w-full overflow-hidden pb-10"
+            className="relative w-full overflow-hidden pt-8 pb-10"
             onMouseDown={() => setIsPaused(true)}
             onMouseUp={() => setIsPaused(false)}
             onMouseLeave={() => setIsPaused(false)}
