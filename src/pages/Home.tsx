@@ -8,8 +8,8 @@ import { useEffect, useRef, useState } from 'react';
 const BASE = import.meta.env.BASE_URL;
 
 const cases = [
-  { id: 1, title: 'Как я спроектировал раздел автонакоплений для банка и получил 80% Success Rate', banner: 'case-1/banner 1.jpg' },
-  { id: 2, title: 'Как я спроектировал раздел автонакоплений для банка и получил 80% Success Rate', banner: 'case-2/banner 2.jpg' },
+  { id: 1, title: 'Как я спроектировал раздел автонакоплений для банка и получил 80% Success Rate и 67% Autosaving Conversion после первой итерации', banner: 'case-1/banner 1.jpg' },
+  { id: 2, title: 'Как я увеличил глубину заполнения профиля на 19% и неожиданно увеличил среднее время нахождения на странице на 40 секунд', banner: 'case-2/banner 2.jpg' },
 ];
 
 const shots = Array.from({ length: 10 }, (_, i) => ({
@@ -72,7 +72,7 @@ const CaseCard = ({ c, i }: { c: any; i: number }) => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <Card className="rounded-xl border-none shadow-sm overflow-hidden bg-[#ffffff] transition-all hover:shadow-md duration-300 ease-out h-full flex flex-col p-0">
+        <Card className="rounded-xl border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden bg-[#ffffff] transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] duration-300 ease-out h-full flex flex-col p-0">
           <div className="w-full aspect-[4/3] bg-muted/30 relative overflow-hidden p-0 m-0">
             <img
               src={`${BASE}assets/images/${c.banner}`}
@@ -282,14 +282,14 @@ export default function Home() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-center mb-12 md:mb-24 pt-4 md:pt-8 max-w-4xl mx-auto"
         >
-          <h1 className="text-lg md:text-2xl font-semibold mb-4 md:mb-6 text-foreground tracking-tight">Антон Карпук</h1>
+          <h1 className="text-lg md:text-2xl font-semibold mb-4 md:mb-6 tracking-tight bg-gradient-to-bl from-amber-200 via-lime-400 to-sky-400 bg-clip-text text-transparent inline-block">Антон Карпук</h1>
           <p className="text-[24px] md:text-[42px] leading-[120%] font-medium tracking-tight px-1 md:px-0">
             <span className="text-foreground">6 лет</span> <span className="text-foreground/25">проектирую сложные интерфейсы для</span> <span className="text-foreground">web B2B SaaS</span><span className="text-foreground/25">‑продуктов,</span> <span className="text-foreground">IOS & Android</span> <span className="text-foreground/25">приложения и</span> <span className="text-foreground">дизайн‑системы</span>
           </p>
         </motion.section>
 
         <section className="mb-20 md:mb-32">
-          <h2 className="text-sm font-semibold tracking-widest text-muted-foreground/50 uppercase text-center mb-8 md:mb-12">Избранные кейсы</h2>
+          <h2 className="text-[13px] font-semibold tracking-[0.2em] text-muted-foreground/50 uppercase text-center mb-8 md:mb-12">Избранные кейсы</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 auto-rows-fr">
             {cases.map((c, i) => (
@@ -300,10 +300,10 @@ export default function Home() {
 
         {/* Interactive Loop Marquee (UI Shots) */}
         <section className="mb-24 overflow-hidden relative">
-          <h2 className="text-sm font-semibold tracking-widest text-muted-foreground/50 uppercase text-center mb-8 md:mb-12">UI шоты</h2>
+          <h2 className="text-[13px] font-semibold tracking-[0.2em] text-muted-foreground/50 uppercase text-center mb-6 md:mb-10">UI шоты</h2>
 
           <div
-            className="relative w-full overflow-hidden pt-8 pb-10"
+            className="relative w-full overflow-hidden pt-2 pb-8"
             onMouseDown={() => setIsPaused(true)}
             onMouseUp={() => setIsPaused(false)}
             onMouseLeave={() => setIsPaused(false)}
@@ -321,7 +321,7 @@ export default function Home() {
             >
               {[...shots, ...shots].map((shot, i) => (
                 <div key={`${shot.id}-${i}`} className="flex-shrink-0 w-[280px] md:w-[400px]">
-                  <Card className="rounded-xl overflow-hidden border-none shadow-sm aspect-[4/3] bg-[#ffffff] p-1 pointer-events-none">
+                  <Card className="rounded-xl overflow-hidden border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] aspect-[4/3] bg-[#ffffff] p-1 pointer-events-none">
                     <div className="w-full h-full relative overflow-hidden rounded-lg bg-muted/20 flex items-center justify-center">
                       <span className="text-muted-foreground/30 font-medium text-xs text-center px-4">UI Shot Placeholder</span>
                     </div>
@@ -336,7 +336,7 @@ export default function Home() {
           </div>
         </section>
 
-        <footer className="flex justify-start py-8 pb-6 text-[13px] text-muted-foreground mt-4">
+        <footer className="footer flex justify-start py-8 pb-6 text-[13px] text-muted-foreground mt-20 border-t border-foreground/5">
           <span>(c) 2026</span>
         </footer>
 

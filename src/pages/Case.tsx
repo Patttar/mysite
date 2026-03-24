@@ -9,8 +9,8 @@ import { cn } from '@/lib/utils';
 const BASE = import.meta.env.BASE_URL;
 
 const cases = [
-  { id: 1, title: 'Как я спроектировал раздел автонакоплений для банка и получил 80% Success Rate' },
-  { id: 2, title: 'Как я спроектировал раздел автонакоплений для банка и получил 80% Success Rate' },
+  { id: 1, title: 'Как я спроектировал раздел автонакоплений для банка и получил 80% Success Rate и 67% Autosaving Conversion после первой итерации' },
+  { id: 2, title: 'Как я увеличил глубину заполнения профиля на 19% и неожиданно увеличил среднее время нахождения на странице на 40 секунд' },
 ];
 
 const cvLink = "https://drive.google.com/file/d/1uA0-bED04z8XAIxBwQitAmk-YSQpC2HM/view?pli=1";
@@ -45,7 +45,7 @@ export default function Case() {
   });
 
   const [activeSection, setActiveSection] = useState<string>('');
-  const sections = [
+  const sections = id === 1 ? [
     { id: 'goal', label: 'Цель' },
     { id: 'metrics', label: 'Метрики' },
     { id: 'role', label: 'Моя роль' },
@@ -53,6 +53,17 @@ export default function Case() {
     { id: 'benchmark', label: 'Бенчмарк' },
     { id: 'flow', label: 'Флоу' },
     { id: 'screens', label: 'Экраны' },
+    { id: 'testing', label: 'Тестирование' },
+    { id: 'improvements', label: 'Что можно улучшить' },
+  ] : [
+    { id: 'task', label: 'Задача' },
+    { id: 'role', label: 'Моя роль' },
+    { id: 'testing', label: 'Тестирование' },
+    { id: 'discovery', label: 'Дискавери' },
+    { id: 'solution', label: 'Решение' },
+    { id: 'results', label: 'Результаты' },
+    { id: 'observations', label: 'Наблюдения' },
+    { id: 'improvements', label: 'Что можно улучшить' },
   ];
 
   const mouseX = useMotionValue(0);
@@ -82,7 +93,7 @@ export default function Case() {
           }
         });
       },
-      { threshold: 0.2, rootMargin: '-10% 0px -70% 0px' }
+      { threshold: 0.05, rootMargin: '-10% 0px -40% 0px' }
     );
 
     sections.forEach((section) => {
@@ -264,8 +275,19 @@ export default function Case() {
         {/* Working Area (600px) */}
         <main className="max-w-[600px] mx-auto pt-32 pb-24 relative z-10 transition-all">
 
-          <div className="lg:mt-0 mt-8">
-            {/* Title and Description */}
+          {/* Back Button for Mobile */}
+          <div className="lg:hidden mb-8 -mt-6">
+            <Button variant="ghost" asChild className="px-0 hover:bg-transparent text-muted-foreground hover:text-foreground transition-colors group">
+              <Link to="/" className="flex items-center gap-2">
+                <ChevronLeft className="w-5 h-5 transition-transform group-hover:-translate-x-1" />
+                <span className="text-[15px] font-medium pt-[1px]">Назад</span>
+              </Link>
+            </Button>
+          </div>
+
+          {id === 1 && (
+            <div className="lg:mt-0 mt-8">
+              {/* Title and Description */}
             <motion.section
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -388,7 +410,7 @@ export default function Case() {
               </div>
 
               <p className="text-[16px] md:text-[18px] leading-[1.6] text-foreground/80 mb-8">
-                Я проанализировал процесс создания Копилок и работы с ними в приложениях <a href="https://www.alfabank.by/" target="_blank" rel="noreferrer" className="text-foreground underline underline-offset-4 decoration-foreground/20 hover:decoration-foreground transition-all">Альфа банка</a>, <a href="https://www.sber-bank.by/" target="_blank" rel="noreferrer" className="text-foreground underline underline-offset-4 decoration-foreground/20 hover:decoration-foreground transition-all">Сбер банка</a> и <a href="https://www.belapb.by/" target="_blank" rel="noreferrer" className="text-foreground underline underline-offset-4 decoration-foreground/20 hover:decoration-foreground transition-all">Белагропромбанка</a> по 23-м критериям и выявил схожие фичи и подходы.
+                Я проанализировал процесс создания Копилок и работы с ними в приложениях <a href="https://www.alfabank.by/" target="_blank" rel="noreferrer" className="text-muted-foreground underline underline-offset-4 decoration-muted-foreground/30 hover:text-foreground hover:decoration-foreground/50 transition-all font-medium">Альфа банка</a>, <a href="https://www.sber-bank.by/" target="_blank" rel="noreferrer" className="text-muted-foreground underline underline-offset-4 decoration-muted-foreground/30 hover:text-foreground hover:decoration-foreground/50 transition-all font-medium">Сбер банка</a> и <a href="https://www.belapb.by/" target="_blank" rel="noreferrer" className="text-muted-foreground underline underline-offset-4 decoration-muted-foreground/30 hover:text-foreground hover:decoration-foreground/50 transition-all font-medium">Белагропромбанка</a> по 23-м критериям и выявил схожие фичи и подходы.
               </p>
 
               <h3 className="text-[16px] md:text-[18px] leading-[1.6] text-foreground font-medium mb-6">
@@ -420,7 +442,7 @@ export default function Case() {
                 href="https://docs.google.com/spreadsheets/d/1aCLBOQ2OPOxDfYkNfb1pdoMRsP7DRbRujUQyXceCIFA/edit?gid=0#gid=0"
                 target="_blank"
                 rel="noreferrer"
-                className="text-[14px] font-medium text-foreground hover:text-muted-foreground transition-colors underline underline-offset-4 decoration-foreground/20"
+                className="text-[14px] font-medium text-muted-foreground underline underline-offset-4 decoration-muted-foreground/30 hover:text-foreground hover:decoration-foreground/50 transition-all"
               >
                 Бенчмарк
               </a>
@@ -437,7 +459,7 @@ export default function Case() {
             >
               <h2 className="text-[13px] font-semibold tracking-[0.2em] text-muted-foreground/50 uppercase mb-6">Флоу</h2>
               <p className="text-[16px] md:text-[18px] leading-[1.6] text-foreground/80 mb-8">
-                Я составил <a href="https://www.figma.com/board/ibhI2xoN187DyqaCs6ckHk/%D0%9A%D0%BE%D0%BF%D0%B8%D0%BB%D0%BA%D0%B0?node-id=0-1&t=otgw9xGTkgu1vWtQ-1" target="_blank" rel="noreferrer" className="text-foreground underline underline-offset-4 decoration-foreground/20 hover:decoration-foreground transition-all">флоу</a> для 3-х базовых сценариев: Создания, пополнения и редактирования копилки.
+                Я составил <a href="https://www.figma.com/board/ibhI2xoN187DyqaCs6ckHk/%D0%9A%D0%BE%D0%BF%D0%B8%D0%BB%D0%BA%D0%B0?node-id=0-1&t=otgw9xGTkgu1vWtQ-1" target="_blank" rel="noreferrer" className="text-muted-foreground underline underline-offset-4 decoration-muted-foreground/30 hover:text-foreground hover:decoration-foreground/50 transition-all font-medium">флоу</a> для 3-х базовых сценариев: Создания, пополнения и редактирования копилки.
               </p>
 
               <div className="space-y-12">
@@ -482,13 +504,13 @@ export default function Case() {
               <h2 className="text-[13px] font-semibold tracking-[0.2em] text-muted-foreground/50 uppercase mb-8">Экраны</h2>
 
               {/* Home Page Content Aligned with Heading */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center mb-24">
-                <div className="order-2 md:order-1 self-center">
-                  <div className="overflow-hidden rounded-[24px] border border-foreground/5 shadow-sm">
-                    <img src={`${BASE}assets/images/screen-home.png`} alt="Домашняя страница" className="w-full" />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start mb-24">
+                <div className="order-2 md:order-1 self-start">
+                  <div className="overflow-hidden rounded-[24px] border border-foreground/10">
+                    <img src={`${BASE}assets/images/screen-create-methods.png`} alt="Домашняя страница" className="w-full" />
                   </div>
                 </div>
-                <div className="order-1 md:order-2 self-center flex flex-col justify-center">
+                <div className="order-1 md:order-2 self-start flex flex-col justify-start">
                   <h3 className="text-[18px] font-semibold tracking-tight text-foreground mb-6">
                     Домашняя страница
                   </h3>
@@ -509,7 +531,7 @@ export default function Case() {
                   <h3 className="text-[18px] font-semibold tracking-tight text-foreground mb-10 text-left">Создание копилки</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12 items-start">
                     <div className="flex flex-col">
-                      <div className="mb-6 overflow-hidden rounded-[24px] border border-foreground/5 shadow-sm">
+                      <div className="mb-6 overflow-hidden rounded-[24px] border border-foreground/10">
                         <img src={`${BASE}assets/images/screen-create-emoji.png`} alt="Выбор обложки" className="w-full" />
                       </div>
                       <p className="text-[14px] leading-[1.6] text-muted-foreground">
@@ -518,8 +540,8 @@ export default function Case() {
                     </div>
 
                     <div className="flex flex-col">
-                      <div className="mb-6 overflow-hidden rounded-[24px] border border-foreground/5 shadow-sm">
-                        <img src={`${BASE}assets/images/screen-create-methods.png`} alt="Выбор способа" className="w-full" />
+                      <div className="mb-6 overflow-hidden rounded-[24px] border border-foreground/10">
+                        <img src={`${BASE}assets/images/screen-home.png`} alt="Домашняя страница" className="w-full" />
                       </div>
                       <p className="text-[14px] leading-[1.6] text-muted-foreground">
                         Здесь пользователь выбирает тот способ накопления, который удобен лично ему.
@@ -527,9 +549,537 @@ export default function Case() {
                     </div>
                   </div>
                 </div>
+
+                {/* Типы автонакоплений */}
+                <div className="pt-12">
+                  <h3 className="text-[18px] font-semibold tracking-tight text-foreground mb-10 text-left">Типы автонакоплений</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12 items-start">
+                    <div className="flex flex-col">
+                      <div className="mb-6 overflow-hidden rounded-[24px] border border-foreground/10">
+                        <img src={`${BASE}assets/images/case-1/9.png`} alt="Типы автонакоплений" className="w-full" />
+                      </div>
+                      <div className="text-[14px] leading-[1.6] text-muted-foreground space-y-4">
+                        <p>Обычно человеку приходится самому рассчитывать по сколько отклыдывать в зависимости от его дедлайна и целевой суммы, поэтому система считает всё за нас и подсказывает.</p>
+                        <p>А для тех, кто хочет на 100% контролировать все переводы, есть возможность включить функцию подтверждения всех пополнений.</p>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col">
+                      <div className="mb-6 overflow-hidden rounded-[24px] border border-foreground/10">
+                        <img src={`${BASE}assets/images/case-1/10.png`} alt="Популярные решения" className="w-full" />
+                      </div>
+                      <div className="text-[14px] leading-[1.6] text-muted-foreground space-y-4">
+                        <p>Редко кто-то выбирает необычный процент, чаще всего это что-то кратное 5 или 10. При выборе процента от зачислений система прелагает самые популярные решения и экономит несколько кликов.</p>
+                        <p>Также, зачастую некоторые зачисления лучше оставить нетронутыми, а выбрать всего 1-2 из основных, добавив их в Избранные.</p>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col">
+                      <div className="mb-6 overflow-hidden rounded-[24px] border border-foreground/10">
+                        <img src={`${BASE}assets/images/case-1/11.png`} alt="Выбор счёта и процента" className="w-full" />
+                      </div>
+                      <div className="text-[14px] leading-[1.6] text-muted-foreground space-y-4">
+                        <p>Выбор счёта и процента для пополнений.</p>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col">
+                      <div className="mb-6 overflow-hidden rounded-[24px] border border-foreground/10">
+                        <img src={`${BASE}assets/images/case-1/12.png`} alt="Выбор счёта" className="w-full" />
+                      </div>
+                      <div className="text-[14px] leading-[1.6] text-muted-foreground space-y-4">
+                        <p>Выбор счёта для пополнений.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Самостоятельное пополнение */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start mt-24">
+                <div className="order-2 md:order-1 self-start">
+                  <div className="overflow-hidden rounded-[24px] border border-foreground/10">
+                    <img src={`${BASE}assets/images/case-1/13.png`} alt="Самостоятельное пополнение" className="w-full" />
+                  </div>
+                </div>
+                <div className="order-1 md:order-2 self-start flex flex-col justify-start">
+                  <h3 className="text-[18px] font-semibold tracking-tight text-foreground mb-6">
+                    Самостоятельное пополнение
+                  </h3>
+                  <div className="text-[16px] md:text-[18px] leading-[1.6] text-foreground/80 space-y-4">
+                    <p>
+                      Хоть откладывать вручную можно и без банковского приложения, самостоятельное пополнение копилки всё еще довольно частый выбор среди пользователей.
+                    </p>
+                    <p>
+                      Здесь система помогает не забывать пополнять копилку через напоминания, которые можно настроить вручную.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Секция Копилка */}
+              <div className="mt-24">
+                <h3 className="text-[18px] font-semibold tracking-tight text-foreground mb-10 text-left">Копилка</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12 items-start mb-16">
+                  <div className="flex flex-col">
+                    <div className="mb-6 overflow-hidden rounded-[24px] border border-foreground/10">
+                      <img src={`${BASE}assets/images/case-1/14.png`} alt="Не всегда удаётся придерживаться строгого графика" className="w-full" />
+                    </div>
+                    <div className="text-[14px] leading-[1.6] text-muted-foreground space-y-4">
+                      <p>Не всегда удаётся придерживаться строгого графика при накоплении. Иногда приходится сдвиграть дедлайн, менять стратегию накопления или редактировать целевую сумму. Страница копилки - это инструмент, который позволяет работать с подобными задачами.</p>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col">
+                    <div className="mb-6 overflow-hidden rounded-[24px] border border-foreground/10">
+                      <img src={`${BASE}assets/images/case-1/15.png`} alt="Пополнение в 2 клика" className="w-full" />
+                    </div>
+                    <div className="text-[14px] leading-[1.6] text-muted-foreground space-y-4">
+                      <p>Пополнение в 2 клика.</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Горизонтальный ряд (Full Width Breakout 800px) */}
+                <div className="w-[100vw] max-w-[800px] relative left-1/2 -translate-x-1/2 px-4 lg:px-0 mb-12">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                    <div className="flex flex-col">
+                      <div className="mb-4 overflow-hidden rounded-[24px] border border-foreground/10">
+                        <img src={`${BASE}assets/images/case-1/16.png`} alt="История всех пополнений" className="w-full" />
+                      </div>
+                      <div className="text-[14px] leading-[1.6] text-muted-foreground">
+                        <p>История всех пополнений.</p>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col">
+                      <div className="mb-4 overflow-hidden rounded-[24px] border border-foreground/10">
+                        <img src={`${BASE}assets/images/case-1/17.png`} alt="Вся информация о копилке" className="w-full" />
+                      </div>
+                      <div className="text-[14px] leading-[1.6] text-muted-foreground">
+                        <p>Вся информация о копилке.</p>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col">
+                      <div className="mb-4 overflow-hidden rounded-[24px] border border-foreground/10">
+                        <img src={`${BASE}assets/images/case-1/18.png`} alt="Редактирование типа накопления" className="w-full" />
+                      </div>
+                      <div className="text-[14px] leading-[1.6] text-muted-foreground">
+                        <p>Редактирование типа накопления.</p>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col">
+                      <div className="mb-4 overflow-hidden rounded-[24px] border border-foreground/10">
+                        <img src={`${BASE}assets/images/case-1/19.png`} alt="Редактирование суммы и срока накопления" className="w-full" />
+                      </div>
+                      <div className="text-[14px] leading-[1.6] text-muted-foreground">
+                        <p>Редактирование суммы и срока накопления.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </motion.section>
+
+            {/* Testing Section */}
+            <motion.section
+              id="testing"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="mb-16 scroll-mt-32"
+            >
+              <h2 className="text-[13px] font-semibold tracking-[0.2em] text-muted-foreground/50 uppercase mb-8">Тестирование</h2>
+
+              <div className="text-[16px] md:text-[18px] leading-[1.6] text-foreground/80 space-y-4 mb-16">
+                <p>
+                  Я проводил удаленные usability тестрирования в <a href="https://www.useberry.com/" target="_blank" rel="noreferrer" className="text-muted-foreground underline underline-offset-4 decoration-muted-foreground/30 hover:text-foreground hover:decoration-foreground/50 transition-all font-medium">Useberry</a>. В моем распоряжении было 10 пользователей, для которых я написал подробный гайд по прохождению тестов. Сформировал 6 заданий по основным функциям:
+                </p>
+                <ul className="list-disc pl-6 space-y-2 mt-4 marker:text-foreground/80">
+                  <li>Создание копилки.</li>
+                  <li>Пополнение копилки.</li>
+                  <li>Изменения типа накопления.</li>
+                  <li>Настройка истории пополнений.</li>
+                  <li>Изменение суммы и срока накопления.</li>
+                  <li>Удаление копилки.</li>
+                </ul>
+              </div>
+
+              {/* 80% Task Success Rate */}
+              <div className="mb-16">
+                <h3 className="text-[18px] md:text-[20px] font-semibold tracking-tight text-foreground mb-2 text-left">
+                  80% - глобальный Task Success Rate
+                </h3>
+                <p className="text-[16px] md:text-[18px] leading-[1.6] text-muted-foreground mb-8">
+                  при среднем времени прохождения - 3 минуты 52 секунды.
+                </p>
+                <div className="mb-6">
+                  <img src={`${BASE}assets/images/case-1/20.png`} alt="Результаты тестирования 1" className="w-full" />
+                </div>
+                <p className="text-[16px] md:text-[18px] leading-[1.6] text-foreground/80">
+                  Хуже всего справились с заданием по изменению типа накопления (50% task success rate). С этим заданием не справилась половина участников. Как позже выяснится, самым непростым было - это зайти в копилку.
+                </p>
+              </div>
+
+              {/* 67% Пользователей */}
+              <div className="mb-16">
+                <h3 className="text-[18px] md:text-[20px] font-semibold tracking-tight text-foreground mb-6 text-left">
+                  67% - столько пользователей выбрало один из типов автопополнения
+                </h3>
+                <p className="text-[16px] md:text-[18px] leading-[1.6] text-foreground/80 mb-8">
+                  Хоть акценты и были сделаны на автопополнения, 33% участников выбрали самостоятельное накопление. Могу сделать вывод, что уровень доверия к автоматическим переводам все еще недостаточно высок.
+                </p>
+                <div className="mb-8">
+                  <img src={`${BASE}assets/images/case-1/21.png`} alt="Результаты тестирования 2" className="w-full" />
+                </div>
+              </div>
+
+              {/* Стартовый экран */}
+              <div className="mb-12">
+                <h3 className="text-[18px] md:text-[20px] font-semibold tracking-tight text-foreground mb-6 text-left">
+                  Стартовый экран - самое трудное место для пользователей
+                </h3>
+                <p className="text-[16px] md:text-[18px] leading-[1.6] text-foreground/80 mb-8">
+                  Судя по разбросу кликов на хитмапе во время первого попадания на страницу, пользователь теряется в интерфейсе.
+                </p>
+
+                {/* Выноска */}
+                <div className="bg-[#f4f4f5] rounded-[20px] p-6 mb-8 flex items-start gap-4">
+                  <div className="text-[20px] leading-none select-none shrink-0" aria-hidden="true">❓</div>
+                  <p className="text-[16px] md:text-[17px] leading-[1.6] text-foreground/90 font-medium">
+                    Карточка копилки недостаточно обозначена как кликабельный элемент на фоне других компонентов страницы?
+                  </p>
+                </div>
+
+                <p className="text-[16px] md:text-[18px] leading-[1.6] text-foreground/80 mb-10">
+                  Стоит заметить, что после успешного попадания в копилку, паттерн усваивается и в следующих заданиях трудности отсутствуют.
+                </p>
+
+                {/* 2 столбца */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+                  <div className="flex flex-col">
+                    <div className="mb-4">
+                      <img src={`${BASE}assets/images/case-1/22.png`} alt="Хитмап первого задания" className="w-full" />
+                    </div>
+                    <p className="text-[14px] leading-[1.6] text-muted-foreground">
+                      Хитмап при выполнении первого задания.
+                    </p>
+                  </div>
+                  <div className="flex flex-col">
+                    <div className="mb-4">
+                      <img src={`${BASE}assets/images/case-1/23.png`} alt="Хитмап последнего задания" className="w-full" />
+                    </div>
+                    <p className="text-[14px] leading-[1.6] text-muted-foreground">
+                      Хитмап при выполнении последнего задания.
+                    </p>
+                  </div>
+                </div>
               </div>
             </motion.section>
+
+            {/* Improvements Section */}
+            <motion.section
+              id="improvements"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="mb-16 scroll-mt-32"
+            >
+              <h2 className="text-[13px] font-semibold tracking-[0.2em] text-muted-foreground/50 uppercase mb-8">Что можно улучшить</h2>
+
+              <div className="bg-[#f4f4f5] p-6 md:p-8 rounded-[24px]">
+                <ul className="space-y-4 list-disc pl-5 text-[16px] md:text-[18px] leading-[1.6] text-foreground/80 marker:text-foreground/80">
+                  <li>
+                    <span className="font-semibold text-foreground">Копить по частям.</span> Разделить каждое накопление на этапы, чтобы лучше визуализировать прогресс.
+                  </li>
+                  <li>
+                    <span className="font-semibold text-foreground">Платежи прямо из копилки.</span> Добавить ссылку на желаемый товар и переходить к покупке прямо из копилки.
+                  </li>
+                  <li>
+                    <span className="font-semibold text-foreground">Геймификация.</span> Ввести поощрения и награды за соблюдение сроков накопления при условии, что с копилки не снимались деньги.
+                  </li>
+                </ul>
+              </div>
+            </motion.section>
+
+            {/* Thanks Section */}
+            <motion.section
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="mb-8"
+            >
+              <h2 className="text-[24px] md:text-[28px] font-semibold tracking-tight text-foreground mb-4">
+                Спасибо за внимание
+              </h2>
+              <p className="text-[16px] md:text-[18px] leading-[1.6] text-foreground/80">
+                Со мной можно связаться в <a href="https://www.linkedin.com/in/anton-karpuk-3a7727180/" target="_blank" rel="noreferrer" className="text-muted-foreground underline underline-offset-4 decoration-muted-foreground/30 hover:text-foreground hover:decoration-foreground/50 transition-all font-medium">Linkedin</a> и <a href="https://t.me/Anton_3223" target="_blank" rel="noreferrer" className="text-muted-foreground underline underline-offset-4 decoration-muted-foreground/30 hover:text-foreground hover:decoration-foreground/50 transition-all font-medium">Telegram</a>.
+              </p>
+            </motion.section>
           </div>
+          )}
+
+          {id === 2 && (
+            <div className="lg:mt-0 mt-8">
+              {/* Title and Description */}
+              <motion.section
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="mb-16"
+              >
+                <h1 className="text-[24px] md:text-[36px] leading-[120%] font-medium tracking-tight text-foreground mb-6 md:mb-8">
+                  {caseData.title}
+                </h1>
+                <p className="text-[16px] md:text-[18px] leading-[1.6] text-foreground/80 font-normal">
+                  Я работал над личным кабинетом медицинского центра. Внутри было около 20 полей, но кроме обязательных полей мало кто стремился заполнять остальные. А бизнесу важны эти данные, чтобы:
+                </p>
+                <ul className="list-disc pl-5 mt-4 space-y-2 text-[16px] md:text-[18px] leading-[1.6] text-foreground/80 marker:text-muted-foreground">
+                  <li>Предлагать релевантные чек-апы.</li>
+                  <li>Напоминать о скринингах.</li>
+                  <li>Предлагать вакцинации и профилактические программы.</li>
+                </ul>
+              </motion.section>
+
+              {/* Задача */}
+              <motion.section
+                id="task"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="mb-16 scroll-mt-32"
+              >
+                <h2 className="text-[13px] font-semibold tracking-[0.2em] text-muted-foreground/50 uppercase mb-6">Задача</h2>
+                <p className="text-[16px] md:text-[18px] leading-[1.6] text-foreground/80">
+                  Переработать дизайн профиля, чтобы мотивировать пациентов заполнить как можно больше полей, при этом не помечать каждое поле как обязательное.
+                </p>
+              </motion.section>
+
+              {/* Моя роль */}
+              <motion.section
+                id="role"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="mb-16 scroll-mt-32"
+              >
+                <h2 className="text-[13px] font-semibold tracking-[0.2em] text-muted-foreground/50 uppercase mb-6">Моя роль</h2>
+                <ul className="list-disc pl-5 mb-8 space-y-2 text-[16px] md:text-[18px] leading-[1.6] text-foreground/80 marker:text-muted-foreground">
+                  <li>Протестировал исходный дизайн в Useberry, определил основные проблемы.</li>
+                  <li>Провёл дискавери: проанализировал схожие решения.</li>
+                  <li>Сформулировал и проверил 4 гипотезы.</li>
+                  <li>В ускоренном режиме собрал обновлённый дизайн в Figma Make и протестировал на пользователях.</li>
+                </ul>
+                <div className="bg-[#f4f4f5] rounded-[20px] p-6 flex items-start gap-4">
+                  <div className="text-[20px] leading-none select-none shrink-0" aria-hidden="true">🎉</div>
+                  <p className="text-[16px] md:text-[17px] leading-[1.6] text-foreground/90 font-medium">
+                    Увеличил глубину заполнения профиля на 19% и среднее время нахождения на странице на 40 секунд.
+                  </p>
+                </div>
+              </motion.section>
+
+              {/* Тестирование */}
+              <motion.section
+                id="testing"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="mb-16 scroll-mt-32"
+              >
+                <h2 className="text-[13px] font-semibold tracking-[0.2em] text-muted-foreground/50 uppercase mb-6">Тестирование</h2>
+                <p className="text-[16px] md:text-[18px] leading-[1.6] text-foreground/80 mb-8">
+                  Я потратил примерно 15 минут и несколько промптов в Figma Make, чтобы воссоздать исходную страницу профиля и протестировать её. По результатам тестирования лишь 30% пациентов заполнили все поля.
+                </p>
+
+                {/* 3 Photos Horizontal (Max 600px width, uncropped, no borders/shadows) */}
+                <div className="w-full flex justify-between gap-2 md:gap-4 mb-12">
+                  <div className="flex-1 w-full flex items-center justify-center">
+                    <img src={`${BASE}assets/images/case-2/1.png`} alt="Тестирование 1" className="w-full h-auto object-contain" />
+                  </div>
+                  <div className="flex-1 w-full flex items-center justify-center">
+                    <img src={`${BASE}assets/images/case-2/2.png`} alt="Тестирование 2" className="w-full h-auto object-contain" />
+                  </div>
+                  <div className="flex-1 w-full flex items-center justify-center">
+                    <img src={`${BASE}assets/images/case-2/3.png`} alt="Тестирование 3" className="w-full h-auto object-contain" />
+                  </div>
+                </div>
+              </motion.section>
+
+              {/* Дискавери */}
+              <motion.section
+                id="discovery"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="mb-16 scroll-mt-32"
+              >
+                <h2 className="text-[13px] font-semibold tracking-[0.2em] text-muted-foreground/50 uppercase mb-6">Дискавери</h2>
+                <p className="text-[16px] md:text-[18px] leading-[1.6] text-foreground/80 mb-8">
+                  Я был ограничен во времени, поэтому рассмотрел только <a href="https://hirify.me/" target="_blank" rel="noreferrer" className="text-muted-foreground underline underline-offset-4 decoration-muted-foreground/30 hover:text-foreground hover:decoration-foreground/50 transition-all font-medium">hirify</a> и <a href="http://rabota.by" target="_blank" rel="noreferrer" className="text-muted-foreground underline underline-offset-4 decoration-muted-foreground/30 hover:text-foreground hover:decoration-foreground/50 transition-all font-medium">rabota.by</a>. Эти сервисы не связаны с медициной, однако у них есть заполненные формы при работе с CV.
+                </p>
+                <div className="mb-8 w-full">
+                  <img src={`${BASE}assets/images/case-2/4.png`} alt="Hirify" className="w-full h-auto object-contain" />
+                </div>
+                <p className="text-[16px] md:text-[18px] leading-[1.6] text-foreground/80 mb-8">
+                  В hirify форма разбита на разделы, по которым можно навигировать. Это удобно, когда нужна мобильность и необходимо быстро добраться до конкретного поля.
+                </p>
+
+                <div className="bg-[#f4f4f5] rounded-[20px] p-6 mb-12 space-y-6 flex flex-col items-start text-muted-foreground">
+                  <p className="text-[16px] md:text-[17px] leading-[1.6] italic">
+                    <span className="font-semibold text-foreground mr-1 not-italic">Гипотеза:</span> 
+                    Если разбить форму на разделы, пациентам будет психологически проще заполнять поля порциями, а не бесконечным списком. Таким образом мы увеличим глубину заполнения формы.
+                  </p>
+                  <p className="text-[16px] md:text-[17px] leading-[1.6] italic">
+                    <span className="font-semibold text-foreground mr-1 not-italic">Гипотеза:</span> 
+                    Если объяснить пациентам ценность собираемой информации, то они будут воспринимать форму как заботу, а не шпионаж за личными данными. Таким образом мы мотивируем пациентов заполнить поля с чувствительной информацией.
+                  </p>
+                </div>
+
+                <div className="mb-8 w-full">
+                  <img src={`${BASE}assets/images/case-2/5.png`} alt="Rabota.by" className="w-full h-auto object-contain" />
+                </div>
+                <p className="text-[16px] md:text-[18px] leading-[1.6] text-foreground/80 mb-6">
+                  На <a href="http://rabota.by" target="_blank" rel="noreferrer" className="text-muted-foreground underline underline-offset-4 decoration-muted-foreground/30 hover:text-foreground hover:decoration-foreground/50 transition-all font-medium">rabota.by</a> кроме деления на разделы есть индикатор заполненности профиля. Это отличный способ визуализировать процесс заполнения, когда в большой форме нет чёткого понимания, сколько ещё осталось. Это также воспринимается как игра на чувстве незавершённости, что мотивирует заполнить прогресс-бар на 100%.
+                </p>
+                <p className="text-[16px] md:text-[18px] leading-[1.6] text-foreground/80 mb-8">
+                  Ещё есть полезная возможность видеть незаполненные поля отдельным компактным списком справа. Это позволяет вместо скролла открыть нужное поле в один клик.
+                </p>
+
+                <div className="bg-[#f4f4f5] rounded-[20px] p-6 flex flex-col space-y-6 items-start text-muted-foreground">
+                  <p className="text-[16px] md:text-[17px] leading-[1.6] italic">
+                    <span className="font-semibold text-foreground mr-1 not-italic">Гипотеза:</span>
+                    если добавить индикатор заполненности профиля, это мотивирует пациентов заполнить больше полей.
+                  </p>
+                  <p className="text-[16px] md:text-[17px] leading-[1.6] italic">
+                    <span className="font-semibold text-foreground mr-1 not-italic">Гипотеза:</span>
+                    если добавить рядом список незаполненных полей, по которым можно навигировать, пациенты будут быстрее заполнять форму.
+                  </p>
+                </div>
+              </motion.section>
+
+              {/* Решение */}
+              <motion.section
+                id="solution"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="mb-16 scroll-mt-32"
+              >
+                <h2 className="text-[13px] font-semibold tracking-[0.2em] text-muted-foreground/50 uppercase mb-6">Решение</h2>
+                <p className="text-[16px] md:text-[18px] leading-[1.6] text-foreground/80 mb-8">
+                  Я потратил ещё 30 минут в Figma Make на доработку профиля. В дизайне скомбинировал подходы: разделение полей на разделы, добавление индикатора заполненности и список незаполненных полей.
+                </p>
+                <div className="w-full">
+                  <img src={`${BASE}assets/images/case-2/6.png`} alt="Решение" className="w-full h-auto object-contain" />
+                </div>
+              </motion.section>
+
+              {/* Результаты */}
+              <motion.section
+                id="results"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="mb-16 scroll-mt-32"
+              >
+                <h2 className="text-[13px] font-semibold tracking-[0.2em] text-muted-foreground/50 uppercase mb-6">Результаты</h2>
+                <p className="text-[16px] md:text-[18px] leading-[1.6] text-foreground/80 mb-8">
+                  Я протестировал обновленный дизайн и получил следующие результаты:
+                </p>
+
+                {/* Horizontal Photos 7 & 8 */}
+                <div className="flex justify-between gap-4 md:gap-6 mb-8 w-full">
+                  <div className="flex-1 w-full flex items-center justify-center">
+                    <img src={`${BASE}assets/images/case-2/7.png`} alt="Результат 1" className="w-full h-auto object-contain" />
+                  </div>
+                  <div className="flex-1 w-full flex items-center justify-center">
+                    <img src={`${BASE}assets/images/case-2/8.png`} alt="Результат 2" className="w-full h-auto object-contain" />
+                  </div>
+                </div>
+
+                <div className="bg-[#f4f4f5] rounded-[20px] p-6">
+                  <ul className="list-disc pl-5 space-y-2 text-[16px] md:text-[17px] leading-[1.6] text-foreground/90 font-medium marker:text-foreground">
+                    <li>Среднее Time on Task увеличилось на 40 секунд.</li>
+                    <li>Исходная глубина заполнения формы - 57%. В обновленной версии - 76%.</li>
+                  </ul>
+                </div>
+              </motion.section>
+
+              {/* Наблюдения */}
+              <motion.section
+                id="observations"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="mb-16 scroll-mt-32"
+              >
+                <h2 className="text-[13px] font-semibold tracking-[0.2em] text-muted-foreground/50 uppercase mb-6">Наблюдения</h2>
+                <div className="space-y-4 text-[16px] md:text-[18px] leading-[1.6] text-foreground/80">
+                  <p>
+                    Ожидалось, что среднее время нахождения на странице сократится за счёт навигации по незаполненным полям. Оказалось наоборот. Те, кто впервые работал с таким компонентом, тратили больше времени на изучение.
+                  </p>
+                  <p>
+                    Пользователям привычнее стандартный скрол. Многие испытуемые игнорировали дополнительную навигацию.
+                  </p>
+                  <p>
+                    Добиться заполнения формы на 100% невозможно пока существуют поля, на которые у пациентов не знают ответа.
+                  </p>
+                </div>
+              </motion.section>
+
+              {/* Что можно улучшить */}
+              <motion.section
+                id="improvements"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="mb-16 scroll-mt-32"
+              >
+                <h2 className="text-[13px] font-semibold tracking-[0.2em] text-muted-foreground/50 uppercase mb-6">Что можно улучшить</h2>
+                <div className="bg-[#f4f4f5] rounded-[24px] p-6 md:p-8">
+                  <ul className="space-y-4 list-disc pl-5 text-[16px] md:text-[18px] leading-[1.6] text-foreground/80 marker:text-foreground/80">
+                    <li>
+                      Добавить подсказки к полям, ответы на которые пациенты могут не знать. Например: как узнать свою группу крови и резус-фактор, где посмотреть номер полиса и т. п.
+                    </li>
+                    <li>
+                      Глубже проработать мотивацию.
+                    </li>
+                  </ul>
+                </div>
+              </motion.section>
+
+              {/* Thanks Section */}
+              <motion.section
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="mb-8"
+              >
+                <h2 className="text-[24px] md:text-[28px] font-semibold tracking-tight text-foreground mb-4">
+                  Спасибо за внимание!
+                </h2>
+                <p className="text-[16px] md:text-[18px] leading-[1.6] text-foreground/80">
+                  Со мной можно связаться в <a href="https://www.linkedin.com/in/anton-karpuk-3a7727180/" target="_blank" rel="noreferrer" className="text-muted-foreground underline underline-offset-4 decoration-muted-foreground/30 hover:text-foreground hover:decoration-foreground/50 transition-all font-medium">Linkedin</a> и <a href="https://t.me/Anton_3223" target="_blank" rel="noreferrer" className="text-muted-foreground underline underline-offset-4 decoration-muted-foreground/30 hover:text-foreground hover:decoration-foreground/50 transition-all font-medium">Telegram</a>.
+                </p>
+              </motion.section>
+
+            </div>
+          )}
 
           {/* Footer */}
           <footer className="footer flex justify-start py-8 pb-6 text-[13px] text-muted-foreground mt-20 border-t border-foreground/5">
