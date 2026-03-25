@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { motion, useMotionValue, useSpring, useTransform, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { ChevronLeft } from 'lucide-react';
-import { cn } from '@/lib/utils';
+
 
 const BASE = import.meta.env.BASE_URL;
 
@@ -48,30 +48,6 @@ export default function Case() {
     window.scrollTo(0, 0);
   }, [id]);
 
-  const [activeSection, setActiveSection] = useState<string>('');
-  const sections = id === 1 ? [
-    { id: 'goal', label: 'Цель' },
-    { id: 'metrics', label: 'Метрики' },
-    { id: 'role', label: 'Моя роль' },
-    { id: 'discovery', label: 'Дискавери' },
-    { id: 'benchmark', label: 'Бенчмарк' },
-    { id: 'flow', label: 'Флоу' },
-    { id: 'screens', label: 'Экраны' },
-    { id: 'testing', label: 'Тестирование' },
-    { id: 'improvements', label: 'Что можно улучшить' },
-    { id: 'next', label: 'Следующий кейс' },
-  ] : [
-    { id: 'task', label: 'Задача' },
-    { id: 'role', label: 'Моя роль' },
-    { id: 'testing', label: 'Тестирование' },
-    { id: 'discovery', label: 'Дискавери' },
-    { id: 'solution', label: 'Решение' },
-    { id: 'results', label: 'Результаты' },
-    { id: 'observations', label: 'Наблюдения' },
-    { id: 'improvements', label: 'Что можно улучшить' },
-    { id: 'next', label: 'Следующий кейс' },
-  ];
-
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -91,43 +67,12 @@ export default function Case() {
     };
     window.addEventListener('mousemove', handleMouseMove);
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      { threshold: 0.05, rootMargin: '-10% 0px -40% 0px' }
-    );
-
-    sections.forEach((section) => {
-      const el = document.getElementById(section.id);
-      if (el) observer.observe(el);
-    });
-
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
-      observer.disconnect();
     };
   }, [mouseX, mouseY]);
 
-  const scrollToSection = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      const offset = 120; // Account for fixed header
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = el.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
-  };
 
   return (
     <div className="relative min-h-screen bg-background text-foreground font-sans overflow-x-hidden">
@@ -254,25 +199,7 @@ export default function Case() {
             </motion.div>
           </div>
 
-          {/* Navigation Sidebar (Right Aligned with LinkedIn) */}
-          <div className="absolute right-[16px] md:right-[24px] top-[128px] pointer-events-auto">
-            <nav className="flex flex-col gap-3 border-r border-foreground/5 pr-4 items-end">
-              {sections.map((section) => (
-                <button
-                  key={section.id}
-                  onClick={() => scrollToSection(section.id)}
-                  className={cn(
-                    "text-[13px] font-medium text-right transition-all duration-300 hover:text-foreground",
-                    activeSection === section.id
-                      ? "text-foreground -translate-x-1"
-                      : "text-muted-foreground/20"
-                  )}
-                >
-                  {section.label}
-                </button>
-              ))}
-            </nav>
-          </div>
+          {/* Navigation Sidebar Removed */}
         </div>
       </div>
 
