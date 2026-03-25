@@ -44,6 +44,10 @@ export default function Case() {
     }
   });
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
+
   const [activeSection, setActiveSection] = useState<string>('');
   const sections = id === 1 ? [
     { id: 'goal', label: 'Цель' },

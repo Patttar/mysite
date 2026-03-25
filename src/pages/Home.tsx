@@ -431,7 +431,7 @@ export default function Home() {
             <h1 className="tracking-tight">Антон Карпук</h1>
           </div>
           <p className="text-[24px] md:text-[42px] leading-[120%] font-medium tracking-tight px-1 md:px-0">
-            <span className="text-foreground">6 лет</span> <span className="text-foreground/25">проектирую сложные интерфейсы для</span> <span className="text-foreground">web B2B SaaS</span><span className="text-foreground/25">‑продуктов,</span> <span className="text-foreground">IOS & Android</span> <span className="text-foreground/25">приложения и</span> <span className="text-foreground">дизайн‑системы</span>
+            <span className="text-foreground">6 лет</span> <span className="text-foreground/25">проектирую сложные</span> <span className="text-foreground">B2B web</span> <span className="text-foreground/25">продукты,</span> <span className="text-foreground">IOS & Android</span> <span className="text-foreground/25">приложения</span> <span className="whitespace-nowrap"><span className="text-foreground/25">и</span> <span className="text-foreground">дизайн‑системы</span></span>
           </p>
         </motion.section>
 
