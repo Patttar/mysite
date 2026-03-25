@@ -8,14 +8,19 @@ import { useEffect, useRef, useState } from 'react';
 const BASE = import.meta.env.BASE_URL;
 
 const cases = [
-  { id: 1, title: 'Как я спроектировал раздел автонакоплений для банка и получил 80% Success Rate и 67% Autosaving Conversion после первой итерации', banner: 'case-1/banner 1.jpg' },
-  { id: 2, title: 'Как я увеличил глубину заполнения профиля на 19% и неожиданно увеличил среднее время нахождения на странице на 40 секунд', banner: 'case-2/banner 2.jpg' },
+  { id: 1, title: 'Как я спроектировал раздел автонакоплений для банка и получил 80% Success Rate и 67% Autosaving Conversion после первой итерации', banner: 'case-1/banner 1.jpg', year: '2025', category: 'Fintech' },
+  { id: 2, title: 'Как я увеличил глубину заполнения профиля на 19% и неожиданно увеличил среднее время нахождения на странице на 40 секунд', banner: 'case-2/banner 2.jpg', year: '2025', category: 'Medtech' },
 ];
 
-const shots = Array.from({ length: 10 }, (_, i) => ({
-  id: i + 1,
-  alt: `UI Shot ${i + 1}`,
-}));
+const shots = [
+  { id: 1, title: 'design system', banner: 'ui-shots/design system.webp' },
+  { id: 2, title: 'dashboard', banner: 'ui-shots/dashboard.webp' },
+  { id: 3, title: 'mobile', banner: 'ui-shots/mobile.webp' },
+  { id: 4, title: 'logo', banner: 'ui-shots/logo.webp' },
+  { id: 5, title: 'brainstorm', banner: 'ui-shots/brainstorm.webp' },
+  { id: 6, title: 'present', banner: 'ui-shots/present.webp' },
+  { id: 7, title: 'projects', banner: 'ui-shots/projects.webp' },
+];
 
 const cvLink = "https://drive.google.com/file/d/1uA0-bED04z8XAIxBwQitAmk-YSQpC2HM/view?pli=1";
 
@@ -72,15 +77,28 @@ const CaseCard = ({ c, i }: { c: any; i: number }) => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <Card className="rounded-xl border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden bg-[#ffffff] transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] duration-300 ease-out h-full flex flex-col p-0">
-          <div className="w-full aspect-[4/3] bg-muted/30 relative overflow-hidden p-0 m-0">
-            <img
+        <Card className="rounded-xl border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden bg-[#ffffff] transition-all hover:shadow-[0_8_30px_rgb(0,0,0,0.08)] duration-300 ease-out md:h-full flex flex-col p-1">
+          <div className="w-full aspect-[4/3] relative overflow-hidden rounded-lg bg-muted/30">
+            <motion.img
               src={`${BASE}assets/images/${c.banner}`}
               alt={c.title}
               className="w-full h-full object-cover"
+              animate={{
+                scale: isHovered ? 1.05 : 1,
+                filter: isHovered ? "blur(0px) brightness(1.05)" : "blur(0px) brightness(1)"
+              }}
+              transition={{ duration: 0.15, ease: "easeOut" }}
             />
+            <div className="absolute top-3 left-3 flex gap-2">
+              <div className="px-2.5 py-1 rounded-md bg-white/40 backdrop-blur-md border border-white/20 text-[10px] font-bold tracking-wider text-slate-900 uppercase shadow-sm">
+                {c.year}
+              </div>
+              <div className="px-2.5 py-1 rounded-md bg-white/40 backdrop-blur-md border border-white/20 text-[10px] font-bold tracking-wider text-slate-900 uppercase shadow-sm">
+                {c.category}
+              </div>
+            </div>
           </div>
-          <div className="p-5 md:p-6 flex-1 flex flex-row items-end justify-between gap-10">
+          <div className="p-4 md:p-5 md:flex-1 flex flex-row items-end justify-between gap-10">
             <h3 className="text-[20px] leading-[1.3] font-medium tracking-tight text-foreground/90 transition-colors group-hover:text-primary flex-1">
               {c.title}
             </h3>
@@ -97,6 +115,87 @@ const CaseCard = ({ c, i }: { c: any; i: number }) => {
           </div>
         </Card>
       </Link>
+    </motion.div>
+  );
+};
+
+const projects = [
+  {
+    title: 'D-doors',
+    banner: 'case-3/Ddoors.png',
+    url: 'https://www.behance.net/gallery/222570777/D-doors-E-commerce',
+    year: '2025',
+    category: 'E-com'
+  },
+  {
+    title: 'Project management platform redesign',
+    banner: 'case-3/Deepmind.webp',
+    url: 'https://www.behance.net/gallery/212645001/Project-management-platform-redesign',
+    year: '2024',
+    category: 'Management'
+  },
+  {
+    title: 'Daywear',
+    banner: 'case-3/Daywear.png',
+    url: 'https://www.behance.net/gallery/129341513/Daywear-Casual-clothes-online-shop',
+    year: '2021',
+    category: 'E-com'
+  }
+];
+
+const ProjectCard = ({ p, i }: { p: any; i: number }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: i * 0.1 }}
+      className="h-full"
+    >
+      <a
+        href={p.url}
+        target="_blank"
+        rel="noreferrer"
+        className="block group h-full"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <Card className="rounded-xl border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden bg-[#ffffff] transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] duration-300 ease-out md:h-full flex flex-col p-1 text-left">
+          <div className="w-full aspect-[8/6] relative overflow-hidden rounded-lg bg-muted/30">
+            {p.banner === 'placeholder' ? (
+              <div className="w-full h-full flex items-center justify-center text-muted-foreground/30 text-xs font-medium">
+                Project Image
+              </div>
+            ) : (
+              <motion.img
+                src={`${BASE}assets/images/${p.banner}`}
+                alt={p.title}
+                className="w-full h-full object-cover"
+                animate={{
+                  scale: isHovered ? 1.05 : 1,
+                  filter: isHovered ? "brightness(1.05)" : "brightness(1)"
+                }}
+                transition={{ duration: 0.15, ease: "easeOut" }}
+              />
+            )}
+            <div className="absolute top-3 left-3 flex gap-2">
+              <div className="px-2.5 py-1 rounded-md bg-white/40 backdrop-blur-md border border-white/20 text-[10px] font-bold tracking-wider text-slate-900 uppercase shadow-sm">
+                {p.year}
+              </div>
+              <div className="px-2.5 py-1 rounded-md bg-white/40 backdrop-blur-md border border-white/20 text-[10px] font-bold tracking-wider text-slate-900 uppercase shadow-sm">
+                {p.category}
+              </div>
+            </div>
+          </div>
+          <div className="p-4 md:p-5 md:flex-1 flex flex-col justify-center bg-white">
+            <h3 className="text-[20px] md:text-base font-medium tracking-tight text-foreground/90 leading-snug">
+              {p.title}
+            </h3>
+          </div>
+        </Card>
+      </a>
     </motion.div>
   );
 };
@@ -156,6 +255,45 @@ export default function Home() {
     }
   });
 
+  const [selectedShotIndex, setSelectedShotIndex] = useState<number | null>(null);
+
+  const openPopup = (index: number) => {
+    setSelectedShotIndex(index);
+    setIsPaused(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closePopup = () => {
+    setSelectedShotIndex(null);
+    setIsPaused(false);
+    document.body.style.overflow = 'unset';
+  };
+
+  const showNext = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    if (selectedShotIndex !== null) {
+      setSelectedShotIndex((prev) => (prev !== null ? (prev + 1) % shots.length : null));
+    }
+  };
+
+  const showPrev = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    if (selectedShotIndex !== null) {
+      setSelectedShotIndex((prev) => (prev !== null ? (prev - 1 + shots.length) % shots.length : null));
+    }
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (selectedShotIndex === null) return;
+      if (e.key === 'ArrowRight') showNext();
+      if (e.key === 'ArrowLeft') showPrev();
+      if (e.key === 'Escape') closePopup();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedShotIndex]);
+
   const handleDrag = () => {
     if (marqueeRef.current) {
       const halfWidth = marqueeRef.current.scrollWidth / 2;
@@ -190,8 +328,11 @@ export default function Home() {
       {/* Header (Fixed and Clean) */}
       <motion.header
         initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5 }}
+        animate={{
+          y: selectedShotIndex !== null ? -100 : 0,
+          opacity: selectedShotIndex !== null ? 0 : 1
+        }}
+        transition={{ duration: 0.4, ease: "easeInOut" }}
         className="fixed top-0 left-0 right-0 z-[100] w-full bg-background/70 backdrop-blur-md py-4 pointer-events-auto"
       >
         <div className="grid grid-cols-3 items-center max-w-6xl mx-auto px-4 md:px-6 w-full gap-4">
@@ -282,14 +423,20 @@ export default function Home() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-center mb-12 md:mb-24 pt-4 md:pt-8 max-w-4xl mx-auto"
         >
-          <h1 className="text-lg md:text-2xl font-semibold mb-4 md:mb-6 tracking-tight bg-gradient-to-bl from-amber-200 via-lime-400 to-sky-400 bg-clip-text text-transparent inline-block">Антон Карпук</h1>
+          <div className="inline-flex items-center gap-2.5 px-3 py-1.5 mb-6 md:mb-8 rounded-full bg-secondary/50 border border-foreground/5 text-sm font-medium text-foreground/80 shadow-sm transition-colors hover:bg-secondary/80">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <h1 className="tracking-tight">Антон Карпук</h1>
+          </div>
           <p className="text-[24px] md:text-[42px] leading-[120%] font-medium tracking-tight px-1 md:px-0">
             <span className="text-foreground">6 лет</span> <span className="text-foreground/25">проектирую сложные интерфейсы для</span> <span className="text-foreground">web B2B SaaS</span><span className="text-foreground/25">‑продуктов,</span> <span className="text-foreground">IOS & Android</span> <span className="text-foreground/25">приложения и</span> <span className="text-foreground">дизайн‑системы</span>
           </p>
         </motion.section>
 
-        <section className="mb-20 md:mb-32">
-          <h2 className="text-[13px] font-semibold tracking-[0.2em] text-muted-foreground/50 uppercase text-center mb-8 md:mb-12">Избранные кейсы</h2>
+        <section className="mb-12 md:mb-20">
+          <h2 className="text-[13px] font-semibold tracking-[0.2em] text-muted-foreground/50 uppercase text-center mb-8 md:mb-12">Продуктовые кейсы</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 auto-rows-fr">
             {cases.map((c, i) => (
@@ -298,9 +445,19 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="mb-12 md:mb-20">
+          <h2 className="text-[13px] font-semibold tracking-[0.2em] text-muted-foreground/50 uppercase text-center mb-8 md:mb-12">UX/UI Проекты (eng)</h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 auto-rows-fr">
+            {projects.map((p, i) => (
+              <ProjectCard key={i} p={p} i={i} />
+            ))}
+          </div>
+        </section>
+
         {/* Interactive Loop Marquee (UI Shots) */}
-        <section className="mb-24 overflow-hidden relative">
-          <h2 className="text-[13px] font-semibold tracking-[0.2em] text-muted-foreground/50 uppercase text-center mb-6 md:mb-10">UI шоты</h2>
+        <section className="mb-16 md:mb-24 overflow-hidden relative">
+          <h2 className="text-[13px] font-semibold tracking-[0.2em] text-muted-foreground/50 uppercase text-center mb-6 md:mb-10">UI</h2>
 
           <div
             className="relative w-full overflow-hidden pt-2 pb-8"
@@ -320,10 +477,18 @@ export default function Home() {
               className="flex gap-4 md:gap-6 cursor-grab active:cursor-grabbing w-max select-none"
             >
               {[...shots, ...shots].map((shot, i) => (
-                <div key={`${shot.id}-${i}`} className="flex-shrink-0 w-[280px] md:w-[400px]">
-                  <Card className="rounded-xl overflow-hidden border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] aspect-[4/3] bg-[#ffffff] p-1 pointer-events-none">
-                    <div className="w-full h-full relative overflow-hidden rounded-lg bg-muted/20 flex items-center justify-center">
-                      <span className="text-muted-foreground/30 font-medium text-xs text-center px-4">UI Shot Placeholder</span>
+                <div
+                  key={`${shot.id}-${i}`}
+                  className="flex-shrink-0 w-[280px] md:w-[400px]"
+                  onClick={() => openPopup(i % shots.length)}
+                >
+                  <Card className="rounded-xl overflow-hidden border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] aspect-[4/3] bg-[#ffffff] p-1 cursor-zoom-in transition-transform hover:scale-[1.02] active:scale-[0.98]">
+                    <div className="w-full h-full relative overflow-hidden rounded-lg bg-muted/20">
+                      <img
+                        src={`${BASE}assets/images/${shot.banner}`}
+                        alt={shot.title}
+                        className="w-full h-full object-cover pointer-events-none"
+                      />
                     </div>
                   </Card>
                 </div>
@@ -336,8 +501,68 @@ export default function Home() {
           </div>
         </section>
 
-        <footer className="footer flex justify-start py-8 pb-6 text-[13px] text-muted-foreground mt-20 border-t border-foreground/5">
+        {/* UI Shot Popup */}
+        <AnimatePresence>
+          {selectedShotIndex !== null && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={closePopup}
+              className="fixed inset-0 z-[200] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 md:p-10"
+            >
+              <motion.button
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                onClick={closePopup}
+                className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors z-[210] group"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:rotate-90 transition-transform duration-300"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+              </motion.button>
+
+              <button
+                onClick={(e) => showPrev(e)}
+                className="absolute left-4 md:left-10 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors z-[210] backdrop-blur-md"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              </button>
+
+              <button
+                onClick={(e) => showNext(e)}
+                className="absolute right-4 md:right-10 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors z-[210] backdrop-blur-md"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+
+              <motion.div
+                key={selectedShotIndex}
+                initial={{ scale: 1.05, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.95, opacity: 0 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                onClick={(e) => e.stopPropagation()}
+                className="relative max-w-5xl w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl bg-muted"
+              >
+                <img
+                  src={`${BASE}assets/images/${shots[selectedShotIndex].banner}`}
+                  alt={shots[selectedShotIndex].title}
+                  className="w-full h-full object-contain"
+                />
+              </motion.div>
+
+              <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/50 text-[13px] font-medium tracking-wider uppercase">
+                {selectedShotIndex + 1} / {shots.length} — {shots[selectedShotIndex].title}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <footer className="footer flex items-center justify-between py-8 pb-2 md:pb-6 text-[13px] text-muted-foreground mt-20 border-t border-foreground/5 font-medium tracking-tight">
           <span>(c) 2026</span>
+          <div className="flex gap-4 md:gap-6">
+            <a href="https://www.behance.net/AntonVolle0079" target="_blank" rel="noreferrer" className="hover:text-foreground hover:underline underline-offset-4 transition-all cursor-pointer">Behance</a>
+            <a href="https://dribbble.com/Patar" target="_blank" rel="noreferrer" className="hover:text-foreground hover:underline underline-offset-4 transition-all cursor-pointer">Dribbble</a>
+          </div>
         </footer>
 
       </main>
