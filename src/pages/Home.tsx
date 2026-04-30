@@ -22,7 +22,7 @@ const shots = [
   { id: 7, title: 'projects', banner: 'ui-shots/projects.webp' },
 ];
 
-const cvLink = "https://drive.google.com/file/d/1uA0-bED04z8XAIxBwQitAmk-YSQpC2HM/view?pli=1";
+const cvLink = "https://drive.google.com/file/d/16SvIEKFocc-TtIjtdFbAKn3X6EoyviGs/view?usp=drive_link";
 
 const TelegramIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-foreground">
@@ -77,15 +77,14 @@ const CaseCard = ({ c, i }: { c: any; i: number }) => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <Card className="rounded-xl border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden bg-[#ffffff] transition-all hover:shadow-[0_8_30px_rgb(0,0,0,0.08)] duration-300 ease-out md:h-full flex flex-col p-1">
+        <Card className="rounded-xl border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden bg-[#ffffff] transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] duration-300 ease-out md:h-full flex flex-col p-1">
           <div className="w-full aspect-[4/3] relative overflow-hidden rounded-lg bg-muted/30">
             <motion.img
               src={`${BASE}assets/images/${c.banner}`}
               alt={c.title}
               className="w-full h-full object-cover"
               animate={{
-                scale: isHovered ? 1.05 : 1,
-                filter: isHovered ? "blur(0px) brightness(1.05)" : "blur(0px) brightness(1)"
+                scale: isHovered ? 1.05 : 1
               }}
               transition={{ duration: 0.15, ease: "easeOut" }}
             />
@@ -99,7 +98,7 @@ const CaseCard = ({ c, i }: { c: any; i: number }) => {
             </div>
           </div>
           <div className="p-4 md:p-5 md:flex-1 flex flex-row items-end justify-between gap-10">
-            <h3 className="text-[20px] leading-[1.3] font-medium tracking-tight text-foreground/90 transition-colors group-hover:text-primary flex-1">
+            <h3 className="text-[20px] leading-[1.3] font-medium tracking-tight text-foreground/90 flex-1">
               {c.title}
             </h3>
             <motion.div
@@ -174,8 +173,7 @@ const ProjectCard = ({ p, i }: { p: any; i: number }) => {
                 alt={p.title}
                 className="w-full h-full object-cover"
                 animate={{
-                  scale: isHovered ? 1.05 : 1,
-                  filter: isHovered ? "brightness(1.05)" : "brightness(1)"
+                  scale: isHovered ? 1.05 : 1
                 }}
                 transition={{ duration: 0.15, ease: "easeOut" }}
               />
@@ -431,7 +429,7 @@ export default function Home() {
             <h1 className="tracking-tight">Антон Карпук</h1>
           </div>
           <p className="text-[24px] md:text-[42px] leading-[120%] font-medium tracking-tight px-1 md:px-0">
-            <span className="text-foreground">6 лет</span> <span className="text-foreground/25">проектирую сложные</span> <span className="text-foreground">B2B web</span> <span className="text-foreground/25">продукты,</span> <span className="text-foreground">IOS & Android</span> <span className="text-foreground/25">приложения</span> <span className="whitespace-nowrap"><span className="text-foreground/25">и</span> <span className="text-foreground">дизайн‑системы</span></span>
+            <span className="text-foreground">6 лет</span> <span className="text-foreground/25">проектирую сложные</span> <span className="text-foreground">B2B Web</span> <span className="text-foreground/25">продукты, IOS & Android приложения и дизайн‑системы</span>
           </p>
         </motion.section>
 
@@ -479,15 +477,15 @@ export default function Home() {
               {[...shots, ...shots].map((shot, i) => (
                 <div
                   key={`${shot.id}-${i}`}
-                  className="flex-shrink-0 w-[280px] md:w-[400px]"
+                  className="flex-shrink-0 w-[280px] md:w-[400px] group"
                   onClick={() => openPopup(i % shots.length)}
                 >
-                  <Card className="rounded-xl overflow-hidden border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] aspect-[4/3] bg-[#ffffff] p-1 cursor-zoom-in transition-transform hover:scale-[1.02] active:scale-[0.98]">
+                  <Card className="rounded-xl overflow-hidden border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] aspect-[4/3] bg-[#ffffff] p-1 cursor-zoom-in transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] duration-300 ease-out active:scale-[0.98]">
                     <div className="w-full h-full relative overflow-hidden rounded-lg bg-muted/20">
                       <img
                         src={`${BASE}assets/images/${shot.banner}`}
                         alt={shot.title}
-                        className="w-full h-full object-cover pointer-events-none"
+                        className="w-full h-full object-cover pointer-events-none transition-transform duration-150 ease-out group-hover:scale-[1.05]"
                       />
                     </div>
                   </Card>
