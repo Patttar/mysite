@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { motion, useMotionValue, useSpring, useTransform, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft, Clock } from 'lucide-react';
 
 
 const BASE = import.meta.env.BASE_URL;
@@ -13,7 +13,7 @@ const cases = [
   { id: 2, title: 'Как я увеличил глубину заполнения профиля на 19% и неожиданно увеличил среднее время нахождения на странице на 40 секунд', banner: 'case-2/banner 2.jpg', year: '2025', category: 'Medtech' },
 ];
 
-const cvLink = "https://drive.google.com/file/d/1uA0-bED04z8XAIxBwQitAmk-YSQpC2HM/view?pli=1";
+const cvLink = "https://drive.google.com/file/d/16SvIEKFocc-TtIjtdFbAKn3X6EoyviGs/view?pli=1";
 
 const TelegramIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-foreground">
@@ -21,7 +21,21 @@ const TelegramIcon = () => (
   </svg>
 );
 
+const LongTextIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <line x1="3" y1="5" x2="21" y2="5" />
+    <line x1="3" y1="10" x2="21" y2="10" />
+    <line x1="3" y1="15" x2="21" y2="15" />
+    <line x1="3" y1="20" x2="21" y2="20" />
+  </svg>
+);
 
+const ShortTextIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <line x1="3" y1="8" x2="21" y2="8" />
+    <line x1="3" y1="16" x2="21" y2="16" />
+  </svg>
+);
 
 const LinkedinIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-foreground fill-current">
@@ -81,7 +95,12 @@ export default function Case() {
     }
   }, []);
 
-
+  // Save toggle state
+  const handleToggleVersion = () => {
+    const newVal = !isShortVersion;
+    setIsShortVersion(newVal);
+    localStorage.setItem('case_short_version', String(newVal));
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -287,8 +306,8 @@ export default function Case() {
                       <div className="flex flex-col items-center flex-shrink-0 pt-[5px]">
                         <div
                           className={`w-1.5 h-1.5 rounded-full transition-all duration-150 ${isActive
-                              ? 'scale-[1.4] bg-[#a3e635]'
-                              : 'scale-100 bg-zinc-500/35'
+                            ? 'scale-[1.4] bg-[#a3e635]'
+                            : 'scale-100 bg-zinc-500/35'
                             }`}
                         />
                         {!isLast && (
@@ -297,8 +316,8 @@ export default function Case() {
                       </div>
                       <span
                         className={`text-[15px] font-medium tracking-tight whitespace-nowrap pb-3 transition-all duration-150 ${isActive
-                            ? 'text-foreground opacity-100'
-                            : 'text-muted-foreground opacity-40 group-hover:opacity-80 group-hover:text-foreground'
+                          ? 'text-foreground opacity-100'
+                          : 'text-muted-foreground opacity-40 group-hover:opacity-80 group-hover:text-foreground'
                           }`}
                       >
                         {item.label}
@@ -341,16 +360,65 @@ export default function Case() {
                   {caseData.title}
                 </h1>
 
-                <p className="text-[16px] md:text-[18px] leading-[1.6] text-foreground/80 font-normal">
-                  Когда деньги лежат на карте, тратить их очень легко: клик - и вот очередное списание в магазине или на маркетплейсе. А к концу месяца может оказаться, что не хватает на оплату аренды квартиры. Копилки, предлагаемые многими банками, позволяют нам отодвинуть горизонт финансового планирования на годы, что помогает безболезненно отложить деньги на дорогостоящие покупки.
-                </p>
+                <AnimatePresence mode="wait">
+                  {!isShortVersion ? (
+                    <motion.div
+                      key="full-desc"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.3 }}
+                      className="full-content"
+                    >
+                      <p className="text-[16px] md:text-[18px] leading-[1.6] text-foreground/80 font-normal">
+                        Когда деньги лежат на карте, тратить их очень легко: клик - и вот очередное списание в магазине или на маркетплейсе. А к концу месяца может оказаться, что не хватает на оплату аренды квартиры. Копилки, предлагаемые многими банками, позволяют нам отодвинуть горизонт финансового планирования на годы, что помогает безболезненно отложить деньги на дорогостоящие покупки.
+                      </p>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="summary-desc"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.3 }}
+                      className="summary-content"
+                    >
+                      <div className="bg-secondary/30 border border-foreground/5 p-6 rounded-[24px]">
+                        <p className="text-[17px] md:text-[19px] leading-[1.6] text-foreground font-medium mb-4 italic border-l-4 border-lime-400 pl-4">
+                          {id === 1
+                            ? "Краткий обзор: Первая версия системы автонакоплений для крупного банка."
+                            : "Краткий обзор: Редизайн профиля медтех-платформы для повышения вовлеченности."}
+                        </p>
+                        <ul className="space-y-2 text-[15px] md:text-[16px] text-foreground/80 list-disc pl-5">
+                          {id === 1 ? (
+                            <>
+                              <li><span className="font-semibold text-foreground">80% Task Success Rate</span> — результат первой итерации дизайна.</li>
+                              <li><span className="font-semibold text-foreground">67% конверсия</span> пользователей в автоматические способы накопления.</li>
+                              <li>Ключевые боли: отсутствие контроля, страх списаний и сложность ручного расчета.</li>
+                            </>
+                          ) : (
+                            <>
+                              <li><span className="font-semibold text-foreground">+19% глубина заполнения</span> профиля после обновления интерфейса.</li>
+                              <li><span className="font-semibold text-foreground">+40 секунд</span> среднего времени нахождения на критических страницах.</li>
+                              <li>Ключевые боли: сложность ввода данных, отсутствие мотивации и перегруженные формы.</li>
+                            </>
+                          )}
+                        </ul>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.section>
 
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.4 }}
-              >
+              <AnimatePresence mode="wait">
+                {!isShortVersion ? (
+                  <motion.div
+                    key="full-content"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.4 }}
+                  >
                     {/* Goal Section */}
                     <motion.section
                       id="goal"
@@ -855,13 +923,20 @@ export default function Case() {
                         </ul>
                       </div>
                     </motion.section>
-                    {/* Results in one screen - always visible now */}
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="summary-sections"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.4 }}
+                    className="summary-content"
+                  >
                     <motion.section
                       initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5 }}
-                      className="mb-16 scroll-mt-32"
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mb-16"
                     >
                       <h2 className="text-[13px] font-semibold tracking-[0.2em] text-muted-foreground/50 uppercase mb-8">Результаты в одном экране</h2>
                       <div className="grid grid-cols-1 gap-12">
@@ -899,6 +974,10 @@ export default function Case() {
                       </div>
                     </motion.section>
                   </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* Thanks Section */}
               <motion.section
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}

@@ -22,7 +22,7 @@ const shots = [
   { id: 7, title: 'projects', banner: 'ui-shots/projects.webp' },
 ];
 
-const cvLink = "https://drive.google.com/file/d/16SvIEKFocc-TtIjtdFbAKn3X6EoyviGs/view?usp=drive_link";
+const cvLink = "https://drive.google.com/file/d/16SvIEKFocc-TtIjtdFbAKn3X6EoyviGs/view?pli=1";
 
 const TelegramIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-foreground">
