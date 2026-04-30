@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { motion, useMotionValue, useSpring, useTransform, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { ChevronLeft, Clock } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 
 
 const BASE = import.meta.env.BASE_URL;
@@ -21,21 +21,7 @@ const TelegramIcon = () => (
   </svg>
 );
 
-const LongTextIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <line x1="3" y1="5" x2="21" y2="5" />
-    <line x1="3" y1="10" x2="21" y2="10" />
-    <line x1="3" y1="15" x2="21" y2="15" />
-    <line x1="3" y1="20" x2="21" y2="20" />
-  </svg>
-);
 
-const ShortTextIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <line x1="3" y1="8" x2="21" y2="8" />
-    <line x1="3" y1="16" x2="21" y2="16" />
-  </svg>
-);
 
 const LinkedinIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-foreground fill-current">
@@ -95,12 +81,7 @@ export default function Case() {
     }
   }, []);
 
-  // Save toggle state
-  const handleToggleVersion = () => {
-    const newVal = !isShortVersion;
-    setIsShortVersion(newVal);
-    localStorage.setItem('case_short_version', String(newVal));
-  };
+
 
   useEffect(() => {
     window.scrollTo(0, 0);
