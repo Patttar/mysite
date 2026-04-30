@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { motion, useMotionValue, useSpring, useTransform, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { ChevronLeft, Clock } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 
 
 const BASE = import.meta.env.BASE_URL;
@@ -21,21 +21,41 @@ const TelegramIcon = () => (
   </svg>
 );
 
-const LongTextIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <line x1="3" y1="5" x2="21" y2="5" />
-    <line x1="3" y1="10" x2="21" y2="10" />
-    <line x1="3" y1="15" x2="21" y2="15" />
-    <line x1="3" y1="20" x2="21" y2="20" />
-  </svg>
-);
 
-const ShortTextIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <line x1="3" y1="8" x2="21" y2="8" />
-    <line x1="3" y1="16" x2="21" y2="16" />
-  </svg>
-);
+const HeaderButton = ({ children, href, isSocial = false }: { children: React.ReactNode; href: string; isSocial?: boolean }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  
+  return (
+    <Button 
+      variant="secondary" 
+      asChild 
+      className={`rounded-xl h-12 font-medium bg-secondary transition-all text-base shadow-sm flex items-center justify-center p-0 overflow-hidden relative border-none ${isSocial ? 'w-12 md:w-auto md:px-6' : 'px-5'}`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <a href={href} target="_blank" rel="noreferrer" className="relative z-10 w-full h-full flex items-center justify-center">
+        <motion.div
+          className="absolute inset-0 z-[-1]"
+          animate={{
+            background: isHovered
+              ? "linear-gradient(225deg, #fde68a 0%, #a3e635 45%, #38bdf8 100%)"
+              : "rgba(244, 244, 245, 1)" // secondary color
+          }}
+          transition={{ duration: 0.2 }}
+        />
+        <motion.div
+          className="flex items-center justify-center gap-2 w-full h-full"
+          animate={{
+            color: isHovered ? "#ffffff" : "#09090b" // foreground color
+          }}
+          transition={{ duration: 0.2 }}
+        >
+          {children}
+        </motion.div>
+      </a>
+    </Button>
+  );
+};
 
 const LinkedinIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-foreground fill-current">
@@ -95,12 +115,6 @@ export default function Case() {
     }
   }, []);
 
-  // Save toggle state
-  const handleToggleVersion = () => {
-    const newVal = !isShortVersion;
-    setIsShortVersion(newVal);
-    localStorage.setItem('case_short_version', String(newVal));
-  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -185,9 +199,9 @@ export default function Case() {
       >
         <div className="grid grid-cols-3 items-center max-w-6xl mx-auto px-4 md:px-6 w-full gap-4">
           <div className="flex justify-start">
-            <Button variant="secondary" asChild className="rounded-xl px-5 h-12 font-medium bg-secondary hover:bg-secondary/80 transition-all text-base shadow-sm">
-              <a href={cvLink} target="_blank" rel="noreferrer">CV</a>
-            </Button>
+            <HeaderButton href={cvLink}>
+              CV
+            </HeaderButton>
           </div>
 
           <div className="flex justify-center items-center relative h-12">
@@ -246,18 +260,14 @@ export default function Case() {
           </div>
 
           <div className="flex justify-end gap-2 md:gap-3">
-            <Button variant="secondary" asChild className="rounded-xl h-12 w-12 md:w-auto md:px-6 font-medium bg-secondary hover:bg-secondary/80 transition-all text-base shadow-sm flex items-center justify-center p-0">
-              <a href="https://t.me/Anton_3223" target="_blank" rel="noreferrer">
-                <span className="hidden md:inline">Telegram</span>
-                <span className="md:hidden flex items-center justify-center"><TelegramIcon /></span>
-              </a>
-            </Button>
-            <Button variant="secondary" asChild className="rounded-xl h-12 w-12 md:w-auto md:px-6 font-medium bg-secondary hover:bg-secondary/80 transition-all text-base shadow-sm flex items-center justify-center p-0">
-              <a href="https://www.linkedin.com/in/anton-karpuk-3a7727180/" target="_blank" rel="noreferrer">
-                <span className="hidden md:inline">LinkedIn</span>
-                <span className="md:hidden flex items-center justify-center"><LinkedinIcon /></span>
-              </a>
-            </Button>
+            <HeaderButton href="https://t.me/Anton_3223" isSocial>
+              <span className="hidden md:inline">Telegram</span>
+              <span className="md:hidden flex items-center justify-center"><TelegramIcon /></span>
+            </HeaderButton>
+            <HeaderButton href="https://www.linkedin.com/in/anton-karpuk-3a7727180/" isSocial>
+              <span className="hidden md:inline">LinkedIn</span>
+              <span className="md:hidden flex items-center justify-center"><LinkedinIcon /></span>
+            </HeaderButton>
           </div>
         </div>
       </motion.header>
