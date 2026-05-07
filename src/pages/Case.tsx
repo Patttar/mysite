@@ -295,7 +295,7 @@ export default function Case() {
                 {/* Continuous background line */}
                 <div className="absolute left-0 top-0 bottom-0 w-px bg-foreground/10" />
 
-                {navItems.map((item, index) => {
+                {navItems.map((item) => {
                   const isActive = activeSection === item.id;
                   return (
                     <button
