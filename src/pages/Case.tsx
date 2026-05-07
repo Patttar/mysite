@@ -77,7 +77,6 @@ export default function Case() {
 
   const { scrollY } = useScroll();
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isShortVersion, setIsShortVersion] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('');
   const navItems = caseNavSections[id] || [];
 
@@ -89,23 +88,10 @@ export default function Case() {
     }
   });
 
-  // Load saved toggle state
-  useEffect(() => {
-    const saved = localStorage.getItem('case_short_version');
-    if (saved !== null) {
-      setIsShortVersion(saved === 'true');
-    }
-  }, []);
-
-  // Save toggle state
-  const handleToggleVersion = () => {
-    const newVal = !isShortVersion;
-    setIsShortVersion(newVal);
-    localStorage.setItem('case_short_version', String(newVal));
-  };
-
   useEffect(() => {
     window.scrollTo(0, 0);
+    setActiveSection('');
+    setIsScrolled(false);
   }, [id]);
 
   // IntersectionObserver — отслеживаем активный раздел
