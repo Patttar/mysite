@@ -13,7 +13,7 @@ const cases = [
   { id: 2, title: 'Как я увеличил глубину заполнения профиля на 19% и неожиданно увеличил среднее время нахождения на странице на 40 секунд', banner: 'case-2/banner 2.jpg', year: '2025', category: 'Medtech' },
 ];
 
-const cvLink = "https://drive.google.com/file/d/1uA0-bED04z8XAIxBwQitAmk-YSQpC2HM/view?pli=1";
+const cvLink = "https://drive.google.com/file/d/1PiA_1ONbquexjU9yvpYredYa0TnvUwRN/view?usp=sharing";
 
 const TelegramIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-foreground">
