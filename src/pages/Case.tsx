@@ -77,6 +77,7 @@ export default function Case() {
 
   const { scrollY } = useScroll();
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isShortVersion, setIsShortVersion] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('');
   const navItems = caseNavSections[id] || [];
 
@@ -88,10 +89,23 @@ export default function Case() {
     }
   });
 
+  // Load saved toggle state
+  useEffect(() => {
+    const saved = localStorage.getItem('case_short_version');
+    if (saved !== null) {
+      setIsShortVersion(saved === 'true');
+    }
+  }, []);
+
+  // Save toggle state
+  const handleToggleVersion = () => {
+    const newVal = !isShortVersion;
+    setIsShortVersion(newVal);
+    localStorage.setItem('case_short_version', String(newVal));
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
-    setActiveSection('');
-    setIsScrolled(false);
   }, [id]);
 
   // IntersectionObserver — отслеживаем активный раздел
@@ -163,7 +177,7 @@ export default function Case() {
 
 
   return (
-    <div className="relative min-h-screen bg-background text-foreground font-sans overflow-x-hidden">
+    <div className="relative min-h-screen bg-background text-foreground font-sans overflow-x-hidden" key={id}>
 
       {/* Background Blobs (Antigravity Style) */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
@@ -291,6 +305,7 @@ export default function Case() {
           {navItems.length > 0 && (
             <div className="absolute right-[16px] md:right-[24px] top-[136px] pointer-events-auto">
               <motion.nav
+                key={`nav-${id}`}
                 initial={{ opacity: 0, x: 10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
