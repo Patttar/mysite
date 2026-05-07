@@ -24,11 +24,11 @@ const TelegramIcon = () => (
 
 const HeaderButton = ({ children, href, isSocial = false }: { children: React.ReactNode; href: string; isSocial?: boolean }) => {
   const [isHovered, setIsHovered] = useState(false);
-  
+
   return (
-    <Button 
-      variant="secondary" 
-      asChild 
+    <Button
+      variant="secondary"
+      asChild
       className={`rounded-xl h-12 font-medium bg-secondary transition-all text-base shadow-sm flex items-center justify-center p-0 overflow-hidden relative border-none ${isSocial ? 'w-12 md:w-auto md:px-6' : 'px-5'}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
