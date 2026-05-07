@@ -306,8 +306,8 @@ export default function Case() {
                       <div className="flex flex-col items-center flex-shrink-0 pt-[5px]">
                         <div
                           className={`w-1.5 h-1.5 rounded-full transition-all duration-150 ${isActive
-                              ? 'scale-[1.4] bg-[#a3e635]'
-                              : 'scale-100 bg-zinc-500/35'
+                            ? 'scale-[1.4] bg-[#a3e635]'
+                            : 'scale-100 bg-zinc-500/35'
                             }`}
                         />
                         {!isLast && (
@@ -316,8 +316,8 @@ export default function Case() {
                       </div>
                       <span
                         className={`text-[15px] font-medium tracking-tight whitespace-nowrap pb-3 transition-all duration-150 ${isActive
-                            ? 'text-foreground opacity-100'
-                            : 'text-muted-foreground opacity-40 group-hover:opacity-80 group-hover:text-foreground'
+                          ? 'text-foreground opacity-100'
+                          : 'text-muted-foreground opacity-40 group-hover:opacity-80 group-hover:text-foreground'
                           }`}
                       >
                         {item.label}
