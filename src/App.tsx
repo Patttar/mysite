@@ -4,11 +4,11 @@ import Home from './pages/Home';
 import Case from './pages/Case';
 
 function ScrollToTop() {
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [pathname]);
+  }, [pathname, search]);
 
   return null;
 }
