@@ -289,11 +289,13 @@ export default function Case() {
                 initial={{ opacity: 0, x: 10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
-                className="flex flex-col"
+                className="flex flex-col relative pl-4"
               >
+                {/* Continuous background line */}
+                <div className="absolute left-0 top-0 bottom-0 w-px bg-foreground/10" />
+
                 {navItems.map((item, index) => {
                   const isActive = activeSection === item.id;
-                  const isLast = index === navItems.length - 1;
                   return (
                     <button
                       key={item.id}
@@ -301,22 +303,19 @@ export default function Case() {
                         const el = document.getElementById(item.id);
                         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                       }}
-                      className="flex items-start gap-2.5 group text-left"
+                      className="flex items-center group text-left relative py-2"
                     >
-                      <div className="flex flex-col items-center flex-shrink-0 pt-[5px]">
-                        <div
-                          className={`w-1.5 h-1.5 rounded-full transition-all duration-150 ${isActive
-                            ? 'scale-[1.4] bg-[#a3e635]'
-                            : 'scale-100 bg-zinc-500/35'
-                            }`}
+                      {/* Active line segment highlight */}
+                      {isActive && (
+                        <motion.div
+                          layoutId="active-line-segment"
+                          className="absolute left-[-16px] top-0 bottom-0 w-px bg-[#a3e635]"
+                          transition={{ type: "spring", stiffness: 300, damping: 30 }}
                         />
-                        {!isLast && (
-                          <div className="w-px flex-1 min-h-[16px] bg-foreground/10 mt-1" />
-                        )}
-                      </div>
+                      )}
                       <span
-                        className={`text-[15px] font-medium tracking-tight whitespace-nowrap pb-3 transition-all duration-150 ${isActive
-                          ? 'text-foreground opacity-100'
+                        className={`text-[15px] font-medium tracking-tight whitespace-nowrap transition-all duration-200 ${isActive
+                          ? 'text-foreground'
                           : 'text-muted-foreground opacity-40 group-hover:opacity-80 group-hover:text-foreground'
                           }`}
                       >
