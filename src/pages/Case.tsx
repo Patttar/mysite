@@ -110,28 +110,45 @@ export default function Case() {
 
   // IntersectionObserver — отслеживаем активный раздел
   useEffect(() => {
-    if (isShortVersion) return;
     const ids = (caseNavSections[id] || []).map(item => item.id);
     if (ids.length === 0) return;
+
+    const handleScroll = () => {
+      const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100;
+      if (isAtBottom) {
+        setActiveSection(ids[ids.length - 1]);
+        return;
+      }
+    };
+
     const observer = new IntersectionObserver(
       (entries) => {
-        // Берём запись с наибольшим intersectionRatio среди видимых
+        const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100;
+        if (isAtBottom) {
+          setActiveSection(ids[ids.length - 1]);
+          return;
+        }
+
         const visible = entries.filter(e => e.isIntersecting);
         if (visible.length > 0) {
-          const top = visible.reduce((a, b) =>
-            a.boundingClientRect.top < b.boundingClientRect.top ? a : b
+          const latest = visible.reduce((a, b) =>
+            a.boundingClientRect.top > b.boundingClientRect.top ? a : b
           );
-          setActiveSection(top.target.id);
+          setActiveSection(latest.target.id);
         }
       },
-      { rootMargin: '-10% 0px -80% 0px', threshold: 0 }
+      { rootMargin: '-10% 0px -40% 0px', threshold: 0 }
     );
     ids.forEach(sectionId => {
       const el = document.getElementById(sectionId);
       if (el) observer.observe(el);
     });
-    return () => observer.disconnect();
-  }, [id, isShortVersion]);
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [id]);
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
