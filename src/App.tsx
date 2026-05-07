@@ -7,6 +7,9 @@ function ScrollToTop() {
   const { pathname, search } = useLocation();
 
   useEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
     window.scrollTo(0, 0);
   }, [pathname, search]);
 
