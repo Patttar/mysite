@@ -283,8 +283,8 @@ export default function Case() {
           </div>
 
           {/* Vertical Section Navigation (Right side) */}
-          {!isShortVersion && navItems.length > 0 && (
-            <div className="absolute right-[16px] md:right-[24px] top-[128px] pointer-events-auto">
+          {navItems.length > 0 && (
+            <div className="absolute right-[16px] md:right-[24px] top-[148px] pointer-events-auto">
               <motion.nav
                 initial={{ opacity: 0, x: 10 }}
                 animate={{ opacity: 1, x: 0 }}
