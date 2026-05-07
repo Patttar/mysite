@@ -54,6 +54,7 @@ const caseNavSections: Record<number, { id: string; label: string }[]> = {
     { id: 'screens', label: 'Экраны' },
     { id: 'testing', label: 'Тестирование' },
     { id: 'improvements', label: 'Улучшения' },
+    { id: 'next', label: 'Следующий кейс' },
   ],
   2: [
     { id: 'task', label: 'Задача' },
@@ -64,6 +65,7 @@ const caseNavSections: Record<number, { id: string; label: string }[]> = {
     { id: 'results', label: 'Результаты' },
     { id: 'observations', label: 'Наблюдения' },
     { id: 'improvements', label: 'Улучшения' },
+    { id: 'next', label: 'Следующий кейс' },
   ],
 };
 
